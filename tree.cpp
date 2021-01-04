@@ -7,12 +7,27 @@ struct node{
 };
 node *root = NULL;
 int c=0, h=0;
+int ltree, rtree;
 int inOrder[10];
 int preOrder[10];
 int postOrder[10];
 int i=0, j=0, k=0;
-int height(){
-    
+int maxi(int a, int b){
+    return a>b ? a : b;
+}
+int level(node *t){
+    if(t==NULL)
+        return 0;
+    ltree = level(t->left);
+    rtree = level(t->right);
+    return maxi(ltree, rtree) + 1;
+}
+int height(node *t){
+    if(t==NULL)
+        return -1;
+    ltree = height(t->left);
+    rtree = height(t->right);
+    return maxi(ltree, rtree) + 1;
 }
 void preOrderTraversal(node *t){
     if(t==NULL)
@@ -156,15 +171,15 @@ int main(){
     addLeaf(4);
     addLeaf(6);
     addLeaf(8);
-    addLeaf(9);
+    addLeaf(15);
+    addLeaf(0);
+    addLeaf(-2);
+    addLeaf(21);
     cout<<endl<<"Inorder ";
     inOrderTraversal(root);
     cout<<endl<<"Preorder ";
     preOrderTraversal(root);
     cout<<endl<<"Postorder ";
     postOrderTraversal(root);
-    updateLeaf(6,10);
-    updateLeaf(3,1);
-    cout<<endl<<"Inorder ";
-    inOrderTraversal(root);
+    cout<<endl<<"Height of tree is : "<<height(root)<<" with levels : "<<level(root);
 }
