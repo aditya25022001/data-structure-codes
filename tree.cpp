@@ -12,7 +12,7 @@ int preOrder[10];
 int postOrder[10];
 int i=0, j=0, k=0;
 int height(){
-
+    
 }
 void preOrderTraversal(node *t){
     if(t==NULL)
