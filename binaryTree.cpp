@@ -43,6 +43,8 @@ void createTree(int n){
                 index++;
             }
         }
+        if(treeLeaves[i]==")" && treeLeaves[i+1]==")")
+            index--;
     }
 }
 void traverseInOrderRecursion(node *t){
@@ -52,12 +54,19 @@ void traverseInOrderRecursion(node *t){
     cout<<"->"<<t->data;
     traverseInOrderRecursion(t->right);
 }
-/*
-void traversePreOrderRecursion(){
-    
+void traversePreOrderRecursion(node *t){
+    if(t==NULL)
+        return;
+    cout<<"->"<<t->data;
+    traversePreOrderRecursion(t->left);
+    traversePreOrderRecursion(t->right);   
 }
-void traversePostOrderRecursion(){
-    
+void traversePostOrderRecursion(node *t){
+    if(t==NULL)
+        return;
+    traversePostOrderRecursion(t->left);
+    traversePostOrderRecursion(t->right);
+    cout<<"->"<<t->data;
 }
 void traverseInOrderIterative(){
 
@@ -67,7 +76,7 @@ void traversePreOrderIterative(){
 }
 void traversePostOrderIterative(){
     
-}*/
+}
 int main(){
     int n;
     cout<<endl<<"Enter tree string size with parenthesis and comma : ";
@@ -76,6 +85,11 @@ int main(){
     for(int i=0;i<n;i++)
         cin>>treeLeaves[i];
     createTree(n);
+    cout<<endl<<"Inorder ";
     traverseInOrderRecursion(root);
+    cout<<endl<<"Preorder ";
+    traversePreOrderRecursion(root);
+    cout<<endl<<"Postorder ";
+    traversePostOrderRecursion(root);
     return 0;
 }
