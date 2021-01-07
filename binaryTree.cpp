@@ -9,7 +9,9 @@ int index=0;
 string treeLeaves[100];
 node *root=NULL;
 node *parents[100];
+node *parents1[100];
 void createTree(int n){
+    index=0;
     for(int i=0;i<n;i++){
         if(treeLeaves[i]!="(" && treeLeaves[i]!="," && treeLeaves[i]!=")"){
             node *temp = new node;
@@ -69,13 +71,66 @@ void traversePostOrderRecursion(node *t){
     cout<<"->"<<t->data;
 }
 void traverseInOrderIterative(){
-
+    index=-1;
+    node *temp = root;
+    while(temp!=NULL || index!=-1){
+        if(temp!=NULL){
+            index++;
+            parents1[index]=temp;
+            temp=temp->left;
+        }
+        else{
+            temp=parents1[index];
+            index--;
+            cout<<"->"<<temp->data;
+            temp=temp->right;
+        }
+    }
 }
 void traversePreOrderIterative(){
-    
+    index=-1;
+    node *temp = root;
+    index++;
+    parents1[index]=temp;
+    while (index>-1){
+        temp = parents1[index];
+        cout<<"->"<<temp->data;
+        index--;
+        if (temp->right){
+            index++;
+            parents1[index]=temp->right;
+        }
+        if (temp->left){
+            index++;
+            parents1[index]=temp->left;
+        }
+    }
 }
 void traversePostOrderIterative(){
-    
+    index=-1;
+    index++;
+    int indexPost = -1;
+    node *temp = root;
+    parents1[index]=temp;
+    string post[100];
+    while(index>-1){
+        temp = parents1[index];
+        index--;
+        indexPost++;
+        post[indexPost]=temp->data;
+        if(temp->left){
+            index++;
+            parents1[index]=temp->left;
+        } 
+        if(temp->right){
+            index++;
+            parents1[index]=temp->right;
+        }
+    }
+    while (indexPost>-1){
+        cout<<"->"<<post[indexPost];
+        indexPost--;
+    }
 }
 int main(){
     int n;
@@ -91,5 +146,11 @@ int main(){
     traversePreOrderRecursion(root);
     cout<<endl<<"Postorder ";
     traversePostOrderRecursion(root);
+    cout<<endl<<"Inorder ";
+    traverseInOrderIterative();
+    cout<<endl<<"Preorder ";
+    traversePreOrderIterative();
+    cout<<endl<<"Postorder ";
+    traversePostOrderIterative();
     return 0;
 }
