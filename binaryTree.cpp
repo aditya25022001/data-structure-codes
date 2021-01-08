@@ -5,11 +5,28 @@ struct node{
     node *left;
     node *right;
 };
-int index=0;
+int index=0, ltree, rtree;
 string treeLeaves[100];
 node *root=NULL;
 node *parents[100];
 node *parents1[100];
+int maxi(int a, int b){
+    return a>b ? a : b;
+}
+int level(node *t){
+    if(t==NULL)
+        return 0;
+    ltree = level(t->left);
+    rtree = level(t->right);
+    return maxi(ltree, rtree) + 1;
+}
+int height(node *t){
+    if(t==NULL)
+        return -1;
+    ltree = height(t->left);
+    rtree = height(t->right);
+    return maxi(ltree, rtree) + 1;
+}
 void createTree(int n){
     index=0;
     for(int i=0;i<n;i++){
@@ -142,15 +159,17 @@ int main(){
     createTree(n);
     cout<<endl<<"Inorder ";
     traverseInOrderRecursion(root);
-    cout<<endl<<"Preorder ";
+    cout<<endl<<endl<<"Preorder ";
     traversePreOrderRecursion(root);
-    cout<<endl<<"Postorder ";
+    cout<<endl<<endl<<"Postorder ";
     traversePostOrderRecursion(root);
-    cout<<endl<<"Inorder ";
+    cout<<endl<<endl<<"Inorder ";
     traverseInOrderIterative();
-    cout<<endl<<"Preorder ";
+    cout<<endl<<endl<<"Preorder ";
     traversePreOrderIterative();
-    cout<<endl<<"Postorder ";
+    cout<<endl<<endl<<"Postorder ";
     traversePostOrderIterative();
+    cout<<endl<<endl<<"Levels in the tree : "<<level(root);;
+    cout<<endl<<endl<<"Height of the tree : "<<height(root);;
     return 0;
 }
