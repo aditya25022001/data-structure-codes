@@ -15,25 +15,66 @@ string arrayOfTree[100];     //array of trees created
 string treeLeaves[100];      //user input for the string of tree to costruct the tree and then to convertthe tree into array
 int index=0;                 //for the array of tree
 int front=-1, rear=-1;       //for the queue
+int trace=0;
 
 //left child of the element
-string leftChild(string data){
-
+void leftChild(string data){
+    trace=0;
+    for(int i=0;i<index;++i)
+        if(arrayOfTree[i]==data){
+            trace=i+1;
+            break;
+        }
+    if(2*trace<=index)
+        cout<<endl<<"Left child of "<<data<<" is "<<arrayOfTree[2*trace-1];
+    else
+        cout<<endl<<"No left child";     
 }
 
 //right child of the element
-string rightChild(string data){
-
+void rightChild(string data){
+    trace=0;
+    for(int i=0;i<index;++i)
+        if(arrayOfTree[i]==data){
+            trace=i+1;
+            break;
+        }
+    if(2*trace+1<=index)
+        cout<<endl<<"Right child of "<<data<<" is "<<arrayOfTree[(2*trace)];
+    else
+        cout<<endl<<"No right child";     
 }
 
 //parent of the element
-string parent(string data){
-
+void parent(string data){
+    trace=0;
+    for(int i=0;i<index;++i)
+        if(arrayOfTree[i]==data){
+            trace=i+1;
+            break;
+        }
+    if(trace==1)
+        cout<<endl<<"Root node no parent.";
+    else
+        cout<<endl<<"Parent of "<<data<<" is "<<arrayOfTree[trace/2-1];
 }
 
 //sibling of the element
-string sibling(string data){
-
+void sibling(string data){
+    trace=0;
+    for(int i=1;i<index;++i)
+        if(arrayOfTree[i]==data){
+            trace=i;
+            break;
+        }
+    if(trace>0 && trace<index){
+        if(trace%2==0)
+            cout<<endl<<"Sibling of "<<data<<" is "<<arrayOfTree[trace-1];
+        else
+            cout<<endl<<"Sibling of "<<data<<" is "<<arrayOfTree[trace+1];
+    }
+    else
+        cout<<endl<<"Either no sibling or root node ";
 }
 
 //push data into the queue
@@ -137,6 +178,12 @@ void createTree(int n){
     }
 }
 
+void showArray(){
+    cout<<endl<<"Showing array : ";
+    for(int i=0;i<index;++i)
+        cout<<arrayOfTree[i]<<"  ";
+}
+
 //main method
 int main(){
     int n;
@@ -147,7 +194,19 @@ int main(){
         cin>>treeLeaves[i];
     createTree(n);
     createArray(root);
-    for(int i=0;i<index;i++)
-        cout<<arrayOfTree[i]<<"  ";
+    showArray();
+    sibling("b");
+    sibling("a");
+    sibling("l");
+    sibling("d");
+    parent("a");
+    parent("g");
+    parent("j");
+    rightChild("d");
+    rightChild("a");
+    rightChild("f");
+    leftChild("e");
+    leftChild("a");
+    leftChild("f");
     return 0;
 }

@@ -12,7 +12,7 @@ node *parents[100];
 node *parents1[100];
 void createTree(int n){
     index=0;
-    for(int i=0;i<n;i++){
+    for(int i=1;i<n-1;i++){
         if(treeLeaves[i]!="(" && treeLeaves[i]!="," && treeLeaves[i]!=")"){
             node *temp = new node;
             temp->data = treeLeaves[i];

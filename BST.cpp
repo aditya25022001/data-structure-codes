@@ -7,6 +7,13 @@ struct node{
 };
 node *root = NULL;
 int c=0;
+void traverseInOrderRecursion(node *t){
+    if(t==NULL)
+        return;
+    traverseInOrderRecursion(t->left);
+    cout<<"->"<<t->data;
+    traverseInOrderRecursion(t->right);
+}
 void addLeaf(int dataI){
     node *temp = new node;
     temp->data = dataI;
@@ -76,16 +83,25 @@ int search(int data){
     }
 }
 int main(){
-    addLeaf(8);
-    addLeaf(3);
-    addLeaf(10);
-    addLeaf(1);
-    addLeaf(6);
-    addLeaf(14);
-    addLeaf(4);
-    addLeaf(7);
-    addLeaf(13);
-    search(7);
-    search(15);
+    char flag='y';
+    int input;
+    cout<<endl<<"Enter data in BST : ";
+    while(flag=='y'){
+        cout<<endl<<"Enter data : ";
+        cin>>input;
+        addLeaf(input);
+        cout<<endl<<"More data ? :";
+        cin>>flag;
+    }
+    flag='y';
+    cout<<endl<<"Inorder tree : just for ref :";
+    traverseInOrderRecursion(root);
+    while(flag=='y'){
+        cout<<endl<<"Enter element to search : ";
+        cin>>input;
+        search(input);
+        cout<<endl<<"More search ? ";
+        cin>>flag;
+    }
     return 0; 
 }
