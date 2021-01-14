@@ -163,6 +163,38 @@ void updateLeaf(int dataI, int dataU){
     if(deleteLeaf(dataI)==1)
         addLeaf(dataU);
 }
+int search(int data){
+    int level=0;
+    node *temp = root;
+    node *tempPrev;
+    if(temp==NULL)
+        return -1;
+    else{
+        while(temp!=NULL){
+            if(data<temp->data){
+                tempPrev=temp;
+                temp=temp->left;
+                c=0;
+            }
+            if(data>temp->data){
+                tempPrev=temp;
+                temp=temp->right;
+                c=1;
+            }
+            if(data==temp->data){
+                if(c==0){
+                    cout<<endl<<"Left child of "<<tempPrev->data;
+                    return 1;
+                }
+                if(c==1){
+                    cout<<endl<<"Right child of "<<tempPrev->data;
+                    return 1;
+                }
+            }
+        }
+        return -1;
+    }
+}
 int main(){
     addLeaf(5);
     addLeaf(3);
@@ -182,4 +214,5 @@ int main(){
     cout<<endl<<"Postorder ";
     postOrderTraversal(root);
     cout<<endl<<"Height of tree is : "<<height(root)<<" with levels : "<<level(root);
+    cout<<endl<<endl<<"Search 21 : "<<search(21);
 }
