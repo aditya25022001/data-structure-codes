@@ -3,25 +3,16 @@ using namespace std;
 class magicSquare{
     int **a, **b, **u;
 public:   
-
-//create zero matrix
-    
     int **zeroMatrix(int size){
-
         a = new int *[size];
         b=a;
-
         for(int i=0;i<size;i++)
             a[i]=new int[size];
-
         for(int i=0;i<size;i++)
             for(int j=0;j<size;j++)
                 *(*(a+i)+j)=0;
         return b;
     }
-    
-//fill in magic square
-    
     int **magicSquareMatrix(int **d, int size){
         u=d;
         int i=0, j=(size-1)/2, key=2, k=0, l=(size-1)/2, c=0;
@@ -56,9 +47,6 @@ public:
         }
         return u;
     }
-
-//display the magic square
-    
     void displayMatrix(int **d, int size){
         int sum=0;
         for(int i=0;i<size;i++)
@@ -75,9 +63,6 @@ public:
         }
         cout<<endl<<"Unique sum of the magic square is : "<<sum;
     }
-    
-//delete all pointers
-    
     void destroy(){
         delete a, b, u;
     }
