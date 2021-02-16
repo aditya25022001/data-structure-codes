@@ -2,7 +2,7 @@
 #include<math.h>
 using namespace std;
 class itp{
-    string iexp[100], pexp[100], oper[100];
+    string iexp[100], pexp[100], oper[100], rev[100];
     int chec, top, up, top2, count, len, top3, top4, rank;
     double eval[100], a, b, c;
 public:
@@ -98,10 +98,10 @@ public:
     //convert expression
     void convertExp(){
         for(int i=0;i<len+2;i++){
-            if(iexp[i]!="*" && iexp[i]!="^" && iexp[i]!="-" && iexp[i]!="+" && iexp[i]!="/" && iexp[i]!="(" && iexp[i]!=")" && iexp[i]!="=" && iexp[i]!=">" && iexp[i]!="<" && iexp[i]!="!" && iexp[i]!="|" && iexp[i]!="&")
-                pushEl(iexp[i], 1);
+            if(rev[i]!="*" && rev[i]!="^" && rev[i]!="-" && rev[i]!="+" && rev[i]!="/" && rev[i]!="(" && rev[i]!=")" && rev[i]!="=" && rev[i]!=">" && rev[i]!="<" && rev[i]!="!" && rev[i]!="|" && rev[i]!="&")
+                pushEl(rev[i], 1);
             else{
-                pushEl(iexp[i], 2);
+                pushEl(rev[i], 2);
             }
         }
         for(int i=up;i>0;i--)
@@ -112,7 +112,7 @@ public:
     void display(){
         cout<<endl<<"Infix Expression : ";
         for(int i=0;i<=top3;i++){
-            cout<<iexp[i]<<" ";
+            cout<<rev[i]<<" ";
         }
         cout<<endl<<"Postfix Expression : ";
         for(int i=0;i<=top;i++){
@@ -185,6 +185,19 @@ public:
         }
     }
 
+    void reverse(int z){
+        for(int i=z;i>=0;--i){
+            if(iexp[i]=="(")
+                rev[z-i]=")";
+            if(iexp[i]==")")
+                rev[z-i]="(";
+            if(iexp[i]!="(" && iexp[i]!=")")
+                rev[z-i]=iexp[i];
+        }
+        for(int i=0;i<z;++i)
+            cout<<rev[i]<<" ";
+
+    }
     //display
     void displayAns(){
         cout<<endl<<"Answer is : ";
@@ -198,9 +211,10 @@ int main(){
     cin>>a;
     itp d(a);
     d.getExpr();
+    d.reverse(a);
     d.convertExp();
     d.display();
-    d.evaluate();
-    d.displayAns();
+    //d.evaluate();
+    //d.displayAns();
     return 0;
 }
